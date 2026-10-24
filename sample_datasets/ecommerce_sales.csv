@@ -1,0 +1,101 @@
+Order_ID,Order_Date,Customer_Name,Segment,Region,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Return_Status
+ORD-2024-1001,2024-12-18,Bob Smith,Home Office,North,Office Supplies,Paper,Paper Pro Model-64,1117.49,4,0.05,74.72,No
+ORD-2024-1002,2024-11-23,Ian Malcolm,Corporate,North,Technology,Laptops,Laptops Pro Model-38,343.58,9,0.2,-14.44,No
+ORD-2024-1003,2024-04-25,Fiona Gallagher,Consumer,North,Furniture,Bookcases,Bookcases Pro Model-21,1143.03,3,0.3,30.62,No
+ORD-2024-1004,2024-09-04,Oscar Isaac,Corporate,East,Furniture,Office Chairs,Office Chairs Pro Model-20,1274.29,10,0.1,308.55,No
+ORD-2024-1005,2024-02-28,Diana Prince,Consumer,East,Office Supplies,Pens,Pens Pro Model-58,874.48,2,0.0,217.2,No
+ORD-2024-1006,2024-11-21,Bob Smith,Home Office,East,Furniture,Tables,Tables Pro Model-91,260.73,6,0.05,58.94,No
+ORD-2024-1007,2024-06-27,Michael Scott,Consumer,South,Technology,Smartphones,Smartphones Pro Model-39,704.15,5,0.3,74.96,No
+ORD-2024-1008,2024-11-16,George Clark,Home Office,West,Technology,Accessories,Accessories Pro Model-68,416.26,4,0.2,88.63,No
+ORD-2024-1009,2024-10-13,Fiona Gallagher,Consumer,South,Technology,Accessories,Accessories Pro Model-27,385.01,9,0.2,11.1,No
+ORD-2024-1010,2024-07-20,Bob Smith,Corporate,North,Office Supplies,Storage,Storage Pro Model-58,1138.56,2,0.05,242.78,No
+ORD-2024-1011,2024-09-25,Evan Wright,Home Office,East,Office Supplies,Storage,Storage Pro Model-53,1457.2,1,0.3,169.35,No
+ORD-2024-1012,2024-09-25,Charlie Brown,Home Office,West,Technology,Accessories,Accessories Pro Model-23,254.07,1,0.3,41.35,No
+ORD-2024-1013,2024-01-20,Fiona Gallagher,Corporate,South,Office Supplies,Pens,Pens Pro Model-12,246.2,3,0.2,58.12,Yes
+ORD-2024-1014,2024-08-27,Bob Smith,Home Office,East,Technology,Accessories,Accessories Pro Model-26,374.39,4,0.2,87.64,No
+ORD-2024-1015,2024-12-23,Diana Prince,Home Office,South,Technology,Monitors,Monitors Pro Model-49,412.28,10,0.15,108.97,Yes
+ORD-2024-1016,2024-01-19,Ian Malcolm,Consumer,West,Furniture,Bookcases,Bookcases Pro Model-85,1351.43,8,0.0,168.08,No
+ORD-2024-1017,2024-06-03,Ian Malcolm,Consumer,North,Technology,Laptops,Laptops Pro Model-45,1067.6,1,0.05,48.28,No
+ORD-2024-1018,2024-07-07,Bob Smith,Consumer,South,Office Supplies,Storage,Storage Pro Model-94,818.07,10,0.2,75.1,No
+ORD-2024-1019,2024-01-13,Laura Croft,Corporate,West,Furniture,Bookcases,Bookcases Pro Model-23,628.43,1,0.3,60.35,No
+ORD-2024-1020,2024-02-15,Michael Scott,Home Office,South,Technology,Smartphones,Smartphones Pro Model-22,813.7,3,0.15,24.45,No
+ORD-2024-1021,2024-07-02,Charlie Brown,Corporate,North,Technology,Laptops,Laptops Pro Model-10,1391.02,4,0.05,204.37,No
+ORD-2024-1022,2024-05-07,Alice Johnson,Home Office,West,Furniture,Bookcases,Bookcases Pro Model-79,442.17,9,0.3,51.08,No
+ORD-2024-1023,2024-01-17,Bob Smith,Consumer,North,Technology,Accessories,Accessories Pro Model-18,94.21,8,0.2,21.27,No
+ORD-2024-1024,2024-02-14,Kevin Bacon,Home Office,South,Office Supplies,Paper,Paper Pro Model-82,617.59,10,0.05,122.7,No
+ORD-2024-1025,2024-11-10,Hannah Abbott,Corporate,East,Office Supplies,Pens,Pens Pro Model-19,322.3,6,0.05,33.74,No
+ORD-2024-1026,2024-02-08,Fiona Gallagher,Corporate,North,Technology,Monitors,Monitors Pro Model-30,128.43,4,0.2,3.8,Yes
+ORD-2024-1027,2024-03-09,Bob Smith,Consumer,North,Furniture,Bookcases,Bookcases Pro Model-80,1008.44,9,0.1,281.89,No
+ORD-2024-1028,2024-09-16,Evan Wright,Consumer,East,Technology,Accessories,Accessories Pro Model-21,915.15,6,0.05,211.63,No
+ORD-2024-1029,2024-12-15,Ian Malcolm,Home Office,East,Office Supplies,Storage,Storage Pro Model-64,85.25,6,0.05,18.43,No
+ORD-2024-1030,2024-09-05,George Clark,Consumer,North,Office Supplies,Paper,Paper Pro Model-15,131.36,3,0.2,-5.15,No
+ORD-2024-1031,2024-09-28,George Clark,Home Office,North,Furniture,Bookcases,Bookcases Pro Model-29,1350.41,4,0.3,-33.95,No
+ORD-2024-1032,2024-07-26,Kevin Bacon,Home Office,South,Technology,Smartphones,Smartphones Pro Model-41,1324.5,1,0.05,325.79,No
+ORD-2024-1033,2024-08-12,Evan Wright,Consumer,North,Furniture,Desks,Desks Pro Model-38,586.16,1,0.15,24.46,No
+ORD-2024-1034,2024-11-27,Ian Malcolm,Corporate,West,Technology,Smartphones,Smartphones Pro Model-13,505.83,2,0.1,53.29,No
+ORD-2024-1035,2024-12-26,Fiona Gallagher,Corporate,South,Technology,Accessories,Accessories Pro Model-87,879.27,5,0.0,72.56,No
+ORD-2024-1036,2024-09-26,Ian Malcolm,Home Office,West,Office Supplies,Paper,Paper Pro Model-95,1351.27,4,0.1,17.99,No
+ORD-2024-1037,2024-12-10,Ian Malcolm,Corporate,West,Technology,Accessories,Accessories Pro Model-95,123.56,6,0.2,5.46,No
+ORD-2024-1038,2024-07-22,Laura Croft,Consumer,West,Furniture,Bookcases,Bookcases Pro Model-88,1051.87,9,0.05,86.83,No
+ORD-2024-1039,2024-10-20,Kevin Bacon,Corporate,West,Office Supplies,Pens,Pens Pro Model-69,830.95,1,0.1,71.52,No
+ORD-2024-1040,2024-11-20,Fiona Gallagher,Consumer,South,Furniture,Tables,Tables Pro Model-40,776.54,3,0.3,-57.9,No
+ORD-2024-1041,2024-10-28,Michael Scott,Consumer,South,Office Supplies,Pens,Pens Pro Model-68,1213.71,3,0.0,77.51,Yes
+ORD-2024-1042,2024-02-25,George Clark,Consumer,West,Furniture,Desks,Desks Pro Model-32,751.68,4,0.05,166.74,No
+ORD-2024-1043,2024-09-18,Julia Roberts,Corporate,North,Office Supplies,Storage,Storage Pro Model-66,844.96,2,0.15,12.68,No
+ORD-2024-1044,2024-11-09,Michael Scott,Home Office,West,Office Supplies,Storage,Storage Pro Model-72,1347.87,8,0.15,71.11,No
+ORD-2024-1045,2024-09-03,Charlie Brown,Consumer,East,Office Supplies,Binders,Binders Pro Model-39,671.01,5,0.05,71.47,No
+ORD-2024-1046,2024-04-27,George Clark,Corporate,South,Furniture,Desks,Desks Pro Model-84,115.06,7,0.1,18.73,No
+ORD-2024-1047,2024-07-18,Laura Croft,Home Office,West,Office Supplies,Paper,Paper Pro Model-79,725.93,6,0.1,164.09,No
+ORD-2024-1048,2024-11-26,George Clark,Home Office,West,Office Supplies,Binders,Binders Pro Model-31,344.74,7,0.15,-5.62,No
+ORD-2024-1049,2024-07-05,Nora Fatehi,Corporate,North,Furniture,Desks,Desks Pro Model-33,1362.25,10,0.2,202.84,No
+ORD-2024-1050,2024-05-25,Nora Fatehi,Corporate,West,Technology,Accessories,Accessories Pro Model-42,504.48,8,0.1,51.08,No
+ORD-2024-1051,2024-11-02,Michael Scott,Consumer,North,Technology,Monitors,Monitors Pro Model-41,1128.56,1,0.1,75.91,No
+ORD-2024-1052,2024-08-23,Evan Wright,Corporate,South,Technology,Laptops,Laptops Pro Model-31,373.05,8,0.3,-24.5,Yes
+ORD-2024-1053,2024-11-13,George Clark,Home Office,South,Office Supplies,Paper,Paper Pro Model-35,1447.79,2,0.2,-61.24,No
+ORD-2024-1054,2024-10-26,Alice Johnson,Corporate,North,Technology,Smartphones,Smartphones Pro Model-78,1051.85,5,0.3,84.28,No
+ORD-2024-1055,2024-02-14,Fiona Gallagher,Home Office,North,Furniture,Bookcases,Bookcases Pro Model-68,768.82,6,0.0,234.39,No
+ORD-2024-1056,2024-09-25,Hannah Abbott,Corporate,West,Office Supplies,Binders,Binders Pro Model-65,280.68,9,0.3,-5.33,No
+ORD-2024-1057,2024-08-19,Julia Roberts,Home Office,East,Office Supplies,Pens,Pens Pro Model-58,1280.54,2,0.1,338.69,No
+ORD-2024-1058,2024-06-09,Oscar Isaac,Home Office,West,Furniture,Office Chairs,Office Chairs Pro Model-99,1279.41,3,0.15,49.43,No
+ORD-2024-1059,2024-08-21,Laura Croft,Corporate,South,Furniture,Office Chairs,Office Chairs Pro Model-67,146.71,7,0.15,20.77,No
+ORD-2024-1060,2024-09-17,Fiona Gallagher,Corporate,East,Technology,Laptops,Laptops Pro Model-80,347.96,4,0.1,69.31,No
+ORD-2024-1061,2024-02-24,Ian Malcolm,Home Office,West,Furniture,Bookcases,Bookcases Pro Model-33,420.96,5,0.05,25.76,No
+ORD-2024-1062,2024-04-10,Diana Prince,Corporate,West,Technology,Smartphones,Smartphones Pro Model-32,429.22,10,0.2,55.39,Yes
+ORD-2024-1063,2024-11-28,Michael Scott,Corporate,South,Furniture,Office Chairs,Office Chairs Pro Model-23,425.98,1,0.2,16.03,Yes
+ORD-2024-1064,2024-08-04,Nora Fatehi,Consumer,West,Technology,Accessories,Accessories Pro Model-61,728.5,6,0.05,229.22,No
+ORD-2024-1065,2024-09-25,George Clark,Home Office,North,Furniture,Office Chairs,Office Chairs Pro Model-86,244.56,10,0.1,6.25,No
+ORD-2024-1066,2024-05-19,Julia Roberts,Consumer,West,Office Supplies,Binders,Binders Pro Model-88,686.76,8,0.1,177.22,Yes
+ORD-2024-1067,2024-09-03,Charlie Brown,Consumer,South,Office Supplies,Paper,Paper Pro Model-62,945.76,5,0.3,-71.54,No
+ORD-2024-1068,2024-02-22,Diana Prince,Corporate,East,Furniture,Tables,Tables Pro Model-90,68.31,5,0.3,-1.04,No
+ORD-2024-1069,2024-03-03,Alice Johnson,Consumer,West,Office Supplies,Binders,Binders Pro Model-49,189.87,4,0.3,-10.5,No
+ORD-2024-1070,2024-09-16,Hannah Abbott,Consumer,West,Office Supplies,Pens,Pens Pro Model-86,204.04,5,0.3,4.23,No
+ORD-2024-1071,2024-10-19,Alice Johnson,Home Office,East,Technology,Monitors,Monitors Pro Model-44,913.5,1,0.0,108.41,No
+ORD-2024-1072,2024-11-27,Hannah Abbott,Consumer,South,Office Supplies,Paper,Paper Pro Model-70,716.34,8,0.1,39.0,No
+ORD-2024-1073,2024-05-22,George Clark,Home Office,East,Furniture,Tables,Tables Pro Model-14,495.17,2,0.05,61.37,No
+ORD-2024-1074,2024-01-22,Nora Fatehi,Home Office,East,Furniture,Office Chairs,Office Chairs Pro Model-69,393.55,2,0.15,92.28,No
+ORD-2024-1075,2024-04-09,Ian Malcolm,Consumer,South,Furniture,Office Chairs,Office Chairs Pro Model-46,787.29,10,0.15,128.03,No
+ORD-2024-1076,2024-01-18,George Clark,Consumer,North,Furniture,Tables,Tables Pro Model-38,62.73,10,0.05,14.93,No
+ORD-2024-1077,2024-12-09,George Clark,Corporate,North,Technology,Monitors,Monitors Pro Model-70,978.61,3,0.15,249.35,No
+ORD-2024-1078,2024-02-09,Michael Scott,Corporate,South,Technology,Monitors,Monitors Pro Model-53,587.71,10,0.2,102.2,No
+ORD-2024-1079,2024-03-15,Ian Malcolm,Corporate,North,Office Supplies,Pens,Pens Pro Model-54,438.6,5,0.2,54.38,No
+ORD-2024-1080,2024-07-02,Fiona Gallagher,Home Office,West,Furniture,Tables,Tables Pro Model-70,1400.62,4,0.3,-39.72,No
+ORD-2024-1081,2024-10-11,Nora Fatehi,Consumer,West,Office Supplies,Storage,Storage Pro Model-66,1482.85,3,0.15,392.14,No
+ORD-2024-1082,2024-05-11,Julia Roberts,Home Office,North,Technology,Monitors,Monitors Pro Model-60,1089.22,7,0.3,208.03,No
+ORD-2024-1083,2024-08-28,Ian Malcolm,Consumer,East,Office Supplies,Paper,Paper Pro Model-89,1281.47,9,0.15,334.77,No
+ORD-2024-1084,2024-12-28,Bob Smith,Corporate,East,Technology,Smartphones,Smartphones Pro Model-31,1496.19,2,0.15,401.73,No
+ORD-2024-1085,2024-04-17,George Clark,Home Office,North,Office Supplies,Pens,Pens Pro Model-97,88.07,1,0.1,9.47,No
+ORD-2024-1086,2024-10-05,Diana Prince,Corporate,South,Technology,Smartphones,Smartphones Pro Model-91,136.87,7,0.2,21.21,No
+ORD-2024-1087,2024-08-12,Julia Roberts,Corporate,East,Furniture,Tables,Tables Pro Model-91,1006.92,8,0.1,204.69,No
+ORD-2024-1088,2024-07-19,Fiona Gallagher,Home Office,West,Furniture,Bookcases,Bookcases Pro Model-47,1271.05,4,0.15,293.61,No
+ORD-2024-1089,2024-12-02,Oscar Isaac,Home Office,North,Office Supplies,Pens,Pens Pro Model-73,1467.36,7,0.1,3.56,No
+ORD-2024-1090,2024-11-22,Nora Fatehi,Consumer,East,Furniture,Desks,Desks Pro Model-90,344.13,4,0.2,8.67,No
+ORD-2024-1091,2024-05-11,Laura Croft,Corporate,East,Technology,Laptops,Laptops Pro Model-32,1187.14,1,0.2,70.59,No
+ORD-2024-1092,2024-08-26,Evan Wright,Home Office,East,Technology,Smartphones,Smartphones Pro Model-53,805.66,5,0.05,82.25,No
+ORD-2024-1093,2024-09-12,Bob Smith,Corporate,North,Technology,Monitors,Monitors Pro Model-11,228.32,4,0.3,26.77,Yes
+ORD-2024-1094,2024-06-04,Kevin Bacon,Consumer,West,Furniture,Office Chairs,Office Chairs Pro Model-70,565.51,5,0.2,36.37,No
+ORD-2024-1095,2024-03-02,Alice Johnson,Corporate,South,Technology,Accessories,Accessories Pro Model-73,978.53,8,0.3,-9.14,No
+ORD-2024-1096,2024-12-23,Ian Malcolm,Corporate,South,Technology,Laptops,Laptops Pro Model-85,1333.14,3,0.15,148.1,No
+ORD-2024-1097,2024-01-23,Fiona Gallagher,Consumer,West,Office Supplies,Binders,Binders Pro Model-66,989.28,8,0.2,71.66,Yes
+ORD-2024-1098,2024-01-13,Evan Wright,Consumer,East,Furniture,Desks,Desks Pro Model-25,167.04,6,0.2,36.83,No
+ORD-2024-1099,2024-03-26,Julia Roberts,Consumer,South,Furniture,Office Chairs,Office Chairs Pro Model-18,969.72,10,0.0,63.2,No
+ORD-2024-1100,2024-10-01,Evan Wright,Consumer,South,Office Supplies,Binders,Binders Pro Model-26,1223.32,4,0.1,284.19,No

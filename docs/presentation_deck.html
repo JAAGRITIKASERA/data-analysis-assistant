@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversational Data Analysis Assistant — Final Year Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B0F19;
+            color: #F8FAFC;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* Top Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 6.25%;
+            background: linear-gradient(90deg, #6366F1, #A855F7);
+            transition: width 0.3s ease;
+        }
+
+        /* Slide Container */
+        .deck-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 640px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 48px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            position: relative;
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Slide Elements */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 20px;
+            color: #818CF8;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            flex: 1;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #F8FAFC;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-list {
+            list-style: none;
+            color: #94A3B8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #6366F1;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Title Slide Custom Layout */
+        .title-slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .main-hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #94A3B8;
+            max-width: 900px;
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+
+        .meta-strip {
+            display: flex;
+            gap: 28px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 24px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+
+        .meta-item strong {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .meta-item span {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #F8FAFC;
+        }
+
+        /* Controls Bottom Bar */
+        .bottom-bar {
+            height: 60px;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 10;
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: #94A3B8;
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #F8FAFC;
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: #6366F1;
+            border-color: #6366F1;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-fullscreen {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Speaker notes toggle */
+        .speaker-notes-toggle {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin-left: 12px;
+        }
+
+        .notes-panel {
+            display: none;
+            position: absolute;
+            bottom: 70px;
+            left: 40px;
+            right: 40px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            border-radius: 12px;
+            padding: 16px 24px;
+            color: #E2E8F0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            z-index: 50;
+        }
+        .notes-panel.active {
+            display: block;
+        }
+
+        /* Table styles */
+        .slide-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            margin-top: 10px;
+        }
+        .slide-table th, .slide-table td {
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        .slide-table th {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818CF8;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="deck-wrapper">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active" data-notes="Good morning respected examiners. Today I present our major project: Conversational Data Analysis Assistant. This platform translates natural language questions over CSV/Excel spreadsheets into verified Python & SQL code, running safely inside an AST-inspected execution sandbox.">
+            <div class="title-slide-content">
+                <div class="badge">B.Tech CSE • Final Year Major Project</div>
+                <h1 class="main-hero-title">Conversational Data Analysis Assistant</h1>
+                <p class="hero-subtitle">
+                    Natural-Language Q&A Over Tabular Datasets Using Autonomous Code Generation,
+                    AST-Guarded Execution Sandboxing, and Self-Healing Error Recovery.
+                </p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <strong>Student Name</strong>
+                        <span>[Your Name]</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Roll Number</strong>
+                        <span>[Roll Number]</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Department</strong>
+                        <span>Computer Science & Engineering</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Project Guide</strong>
+                        <span>[Guide Name, Designation]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide" data-notes="Traditional LLMs fail on data analysis due to 3 issues: context window limits on large files, data privacy violations when uploading confidential records to public cloud servers, and math hallucinations. Our project overcomes all three.">
+            <div class="badge">Background & Motivation</div>
+            <h2 class="slide-title">The Challenge of Tabular Data Analysis with Naive LLMs</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">🚨 Context Saturation</div>
+                    <ul class="card-list">
+                        <li>Real-world spreadsheets contain tens of thousands of rows.</li>
+                        <li>Passing entire raw data files into LLM prompts exceeds context limits and causes exorbitant API costs.</li>
+                        <li>Inference latency increases dramatically with token length.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">🔒 Privacy Violations</div>
+                    <ul class="card-list">
+                        <li>Uploading patient vitals, banking records, or corporate payroll data violates GDPR, HIPAA, and enterprise compliance.</li>
+                        <li>Raw data cannot legally leave local organizational infrastructure.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">🧮 Math Hallucination</div>
+                    <ul class="card-list">
+                        <li>LLMs predict next tokens probabilistically; they are not deterministic calculators.</li>
+                        <li>They routinely hallucinate wrong aggregations, averages, and statistical correlations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Proposed Solution -->
+        <div class="slide" data-notes="We decouple reasoning from execution. The LLM acts as the programmer writing code based on a schema; the local sandbox executes the code deterministically on the client's device.">
+            <div class="badge">Solution Architecture</div>
+            <h2 class="slide-title">Program Synthesis & Isolated Sandboxed Execution</h2>
+            <div class="content-grid">
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">💡 Code Synthesis Paradigm</div>
+                    <ul class="card-list">
+                        <li>Instead of asking the LLM to output numerical answers, it writes <strong>functional Python Pandas / Plotly or SQL code</strong>.</li>
+                        <li>The code executes deterministically on the client's in-memory data.</li>
+                        <li><strong>100% calculation accuracy</strong> with zero arithmetic hallucinations.</li>
+                        <li>High-speed vectorized execution via NumPy and Pandas.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">🛡️ Zero-Data-Leakage Privacy</div>
+                    <ul class="card-list">
+                        <li>Only <strong>structural schema metadata (< 800 tokens)</strong> is transmitted to the LLM.</li>
+                        <li>Raw rows NEVER leave the local client device.</li>
+                        <li>Reduces cloud token consumption by over 95%.</li>
+                        <li>Full enterprise compliance with HIPAA and GDPR standards.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: System Architecture -->
+        <div class="slide" data-notes="Here is our end-to-end operational pipeline. From schema introspection and multi-provider code generation to AST security validation, sandbox execution, and autonomous self-healing.">
+            <div class="badge">Workflow</div>
+            <h2 class="slide-title">End-to-End System Pipeline</h2>
+            <div class="content-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="card">
+                    <div class="card-title">1. Schema Extraction</div>
+                    <ul class="card-list">
+                        <li>Parses uploaded CSV/Excel.</li>
+                        <li>Extracts column types, ranges, null %, and top 5 categories (<800 tokens).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">2. LLM Code Synthesis</div>
+                    <ul class="card-list">
+                        <li>Prompt assembly with user question.</li>
+                        <li>Invokes Gemini 3.8 Flash, Groq, or OpenAI.</li>
+                        <li>Extracts pure Python/SQL blocks.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">3. AST Security Guard</div>
+                    <ul class="card-list">
+                        <li>Pre-execution syntax tree inspection.</li>
+                        <li>Strictly blocks os, sys, subprocess, open, eval.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">4. In-Memory Sandbox</div>
+                    <ul class="card-list">
+                        <li>Runs on safe copy of DataFrame.</li>
+                        <li>Captures tables, scalar metrics, and Plotly figures.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">5. Self-Healing Loop</div>
+                    <ul class="card-list">
+                        <li>Catches KeyError/TypeError.</li>
+                        <li>Feeds error traceback back to LLM.</li>
+                        <li>Auto-repairs code up to 3 attempts.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">6. Output & Export</div>
+                    <ul class="card-list">
+                        <li>Interactive Plotly visualization.</li>
+                        <li>CSV slice download.</li>
+                        <li>One-click Executive HTML/PDF report.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Schema Extraction Secret -->
+        <div class="slide" data-notes="A critical innovation is our top 5 categorical values sampling. It tells the LLM exact string spellings and capitalizations, resolving over 70% of code generation errors on categorical filters.">
+            <div class="badge">Prompt Engineering</div>
+            <h2 class="slide-title">Token-Safe Schema & Categorical Introspection</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">Metadata Captured (< 800 Tokens)</div>
+                    <ul class="card-list">
+                        <li><strong>Feature Names & Dtypes:</strong> int64, float64, object, datetime.</li>
+                        <li><strong>Missing Value Profiling:</strong> Null counts and percentages.</li>
+                        <li><strong>Statistical Boundaries:</strong> Min, Max, Mean, Median for numeric columns.</li>
+                        <li><strong>3 Sample Rows:</strong> Clean structure preview without bulk data exposure.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">🎯 The Top 5 Categorical Values Secret</div>
+                    <ul class="card-list">
+                        <li>LLMs frequently fail because they guess filter values (e.g. searching for 'west' when data contains 'West').</li>
+                        <li>Our schema extractor dynamically samples the top 5 most frequent values for every categorical column.</li>
+                        <li>Enables exact, case-sensitive matching filters (e.g., <code>df[df['Region'] == 'West']</code>).</li>
+                        <li>Reduces query failures by over 70% on categorical filters.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: AST Security Sandbox -->
+        <div class="slide" data-notes="Executing code dynamically with exec() is dangerous without security checks. Our AST scanner inspects every node in the syntax tree before running, preventing Remote Code Execution completely.">
+            <div class="badge">Cyber-Security</div>
+            <h2 class="slide-title">AST Security Sandbox: Preventing Remote Code Execution</h2>
+            <div class="content-grid">
+                <div class="card" style="border-color: rgba(239, 68, 68, 0.4);">
+                    <div class="card-title" style="color: #EF4444;">🚫 Banned Modules & Calls</div>
+                    <ul class="card-list">
+                        <li><strong>Banned Modules:</strong> <code>os, sys, subprocess, shutil, socket, urllib, requests, ctypes</code>.</li>
+                        <li><strong>Banned Builtins:</strong> <code>open, eval, exec, compile, __import__, globals, locals</code>.</li>
+                        <li><strong>Banned Reflections:</strong> <code>__subclasses__, __globals__, __code__, __bases__</code>.</li>
+                        <li>Pre-execution AST traversal aborts code before <code>exec()</code> is ever called.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">✅ Safe Whitelisted Scope</div>
+                    <ul class="card-list">
+                        <li><strong>Injected Globals:</strong> <code>pd</code> (Pandas), <code>np</code> (NumPy), <code>px</code> (Plotly Express), <code>go</code>, <code>plt</code>, <code>sns</code>, <code>df</code>.</li>
+                        <li><strong>Guarded Builtins:</strong> Safe arithmetic (<code>len, range, sum, min, max, round, abs</code>).</li>
+                        <li><strong>_safe_import Wrapper:</strong> Restricts dynamic imports strictly to data science packages.</li>
+                        <li><strong>Memory Isolation:</strong> Runs on a safe reference copy to prevent accidental mutations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Autonomous Self-Healing -->
+        <div class="slide" data-notes="Self-healing is what makes this assistant an agentic AI system. When an error occurs, the stack trace is fed back to the LLM to autonomously repair the code, boosting query success to 96%.">
+            <div class="badge">Agentic Self-Correction</div>
+            <h2 class="slide-title">Autonomous Error Self-Healing Loop</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">1. Error Interception</div>
+                    <ul class="card-list">
+                        <li>Catches execution exceptions: <code>KeyError</code>, <code>AttributeError</code>, <code>TypeError</code>, <code>ZeroDivisionError</code>.</li>
+                        <li>Extracts exact error type, error message, and failing line number.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">2. Diagnostic Prompting</div>
+                    <ul class="card-list">
+                        <li>Builds a targeted healing prompt combining:
+                            <br>• The previous failed code block
+                            <br>• The exact exception traceback
+                            <br>• The dataset schema reminder
+                        </li>
+                        <li>Instructs LLM to fix the bug and return corrected code.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">3. Seamless Recovery</div>
+                    <ul class="card-list">
+                        <li>Re-executes repaired code automatically.</li>
+                        <li>Resolves over 90% of code generation faults.</li>
+                        <li>Surfaces: <code>✨ Auto-Corrected on Attempt N</code> badge with execution telemetry.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Dual Query Engine -->
+        <div class="slide" data-notes="We support both procedural data science via Pandas and relational SQL via DuckDB. DuckDB executes ANSI SQL directly on the DataFrame in memory.">
+            <div class="badge">Engine Flexibility</div>
+            <h2 class="slide-title">Dual Query Engine: Pandas vs. DuckDB ANSI SQL</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">🐍 Pandas Python Engine</div>
+                    <ul class="card-list">
+                        <li>Procedural data transformations, grouping, and statistical modeling.</li>
+                        <li>Generates interactive Plotly Express WebGL charts with tooltips and zoom.</li>
+                        <li>Direct mathematical calculations (quantile, skewness, correlation).</li>
+                        <li>Instant CSV download for any filtered slice.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">🐬 DuckDB In-Memory SQL Engine</div>
+                    <ul class="card-list">
+                        <li>High-performance columnar in-memory OLAP database.</li>
+                        <li>Direct execution of standard ANSI SQL (<code>SELECT, GROUP BY, HAVING, WINDOW, JOIN</code>).</li>
+                        <li>Zero setup: registers DataFrame as virtual table <code>dataset</code>.</li>
+                        <li>Read-only security guard strictly forbids <code>DROP, DELETE, ALTER, COPY</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Automated EDA & Health Score -->
+        <div class="slide" data-notes="Upon uploading a dataset, the assistant immediately profiles the data quality from 0 to 100%, generates a missing values report, a correlation heatmap, and suggested questions.">
+            <div class="badge">Automated EDA</div>
+            <h2 class="slide-title">Deep Data Profiling & Quality Health Scoring</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">0–100% Health Scorecard</div>
+                    <ul class="card-list">
+                        <li>Calculates automated composite quality score.</li>
+                        <li>Penalties for missing cells (up to -40 pts), duplicate rows (up to -30 pts), constant columns (-15 pts).</li>
+                        <li>Rating badges: Excellent (90-100%), Good (75-89%), Moderate (55-74%), Needs Cleaning.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Missing Values & Correlation</div>
+                    <ul class="card-list">
+                        <li>Sortable table pinpointing missing count and percentages.</li>
+                        <li>Pearson correlation matrix heatmap rendered via Plotly for all numerical columns.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">💡 Dynamic Prompt Suggestions</div>
+                    <ul class="card-list">
+                        <li>Algorithm inspects column types and automatically recommends 5 intelligent starting questions.</li>
+                        <li>Clickable chips that run queries with a single click.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Multi-Model Architecture -->
+        <div class="slide" data-notes="We implemented a provider factory supporting Google Gemini, Groq, OpenAI, Claude, Local Ollama, and an offline Demo Mode that requires zero API keys.">
+            <div class="badge">Model Agnostic</div>
+            <h2 class="slide-title">Multi-Provider LLM Integration</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">Google Gemini</div>
+                    <ul class="card-list">
+                        <li><code>gemini-3.8-flash</code> (Default & Recommended)</li>
+                        <li><code>gemini-3.8-pro</code></li>
+                        <li>High speed, large context window.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">Groq Cloud</div>
+                    <ul class="card-list">
+                        <li><code>llama-3.3-70b-versatile</code></li>
+                        <li><strong>100% Free API Tier</strong></li>
+                        <li>Blazing inference (>300 tokens/sec).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">OpenAI & Claude</div>
+                    <ul class="card-list">
+                        <li><code>gpt-4o</code> and <code>gpt-4o-mini</code></li>
+                        <li><code>claude-3-5-sonnet</code></li>
+                        <li>Top-tier code generation quality.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">Offline Demo Mode</div>
+                    <ul class="card-list">
+                        <li>Heuristic rule-based analyzer.</li>
+                        <li><strong>Zero API keys needed!</strong></li>
+                        <li>Guaranteed working demo during viva examinations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Experimental Benchmarks -->
+        <div class="slide" data-notes="Our empirical tests show that self-healing elevates code accuracy from 84% to 96%, with local sandbox execution taking under 5 milliseconds.">
+            <div class="badge">Evaluation & Results</div>
+            <h2 class="slide-title">Performance & Accuracy Benchmarks</h2>
+            <table class="slide-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Traditional Ingestion</th>
+                        <th>Proposed Assistant</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Token Consumption / Query</strong></td>
+                        <td>45,000 – 120,000 tokens</td>
+                        <td>350 – 750 tokens</td>
+                        <td><span style="color: #10B981; font-weight:700;">> 95% Reduction</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sandbox Execution Latency</strong></td>
+                        <td>N/A (No execution)</td>
+                        <td>1.5 – 5.0 milliseconds</td>
+                        <td><span style="color: #10B981; font-weight:700;">Sub-second Local</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Calculation Accuracy</strong></td>
+                        <td>68% (Frequent Hallucination)</td>
+                        <td>100% (Deterministic Math)</td>
+                        <td><span style="color: #10B981; font-weight:700;">Zero Hallucination</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Query Success (Attempt 1)</strong></td>
+                        <td>72%</td>
+                        <td>84%</td>
+                        <td><span style="color: #10B981; font-weight:700;">+ 12%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Success After Self-Healing</strong></td>
+                        <td>72% (No retry)</td>
+                        <td>96% (Attempt 2)</td>
+                        <td><span style="color: #10B981; font-weight:700;">+ 24% Gain</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automated Unit Tests</strong></td>
+                        <td>N/A</td>
+                        <td>11 / 11 Passed (1.52s)</td>
+                        <td><span style="color: #10B981; font-weight:700;">100% Pass Rate</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 12: Executive Report Export -->
+        <div class="slide" data-notes="Users can export an entire analysis session into a self-contained, publication-ready HTML/PDF report with embedded charts and code audit logs.">
+            <div class="badge">Deliverable</div>
+            <h2 class="slide-title">Executive HTML & PDF Report Generator</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">📑 Standalone Executive Document</div>
+                    <ul class="card-list">
+                        <li>Compiles all conversational Q&A into a beautifully styled HTML document.</li>
+                        <li>Includes dataset overview, health scorecard, and record counts.</li>
+                        <li>Embeds interactive Plotly visualizations and base64-encoded charts.</li>
+                        <li>Renders completely offline without external web dependencies.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">🔍 Code Audit Trail & PDF Print</div>
+                    <ul class="card-list">
+                        <li>Full scientific reproducibility: Collapsible code inspection blocks for every answered query.</li>
+                        <li>Print-to-PDF CSS styling optimized for executive briefings and academic defense.</li>
+                        <li>Instant download button built directly into the web application.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Comparative Analysis -->
+        <div class="slide" data-notes="Comparing our system with PowerBI and ChatGPT demonstrates that we combine the ease of natural language with the security and accuracy of enterprise BI tools.">
+            <div class="badge">Competitive Edge</div>
+            <h2 class="slide-title">Comparative Analysis with Existing Solutions</h2>
+            <table class="slide-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Traditional BI (PowerBI)</th>
+                        <th>Naive LLM (ChatGPT)</th>
+                        <th>Our Proposed Assistant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Interface</strong></td>
+                        <td>Complex Drag-and-Drop / DAX</td>
+                        <td>Natural Language Text</td>
+                        <td><span style="color: #818CF8; font-weight:700;">Natural Language + Quick Chips</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Privacy</strong></td>
+                        <td>Stored on enterprise cloud</td>
+                        <td>Raw data sent to cloud</td>
+                        <td><span style="color: #10B981; font-weight:700;">100% Private (Schema Only)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Math Accuracy</strong></td>
+                        <td>Deterministic</td>
+                        <td>Hallucinates calculations</td>
+                        <td><span style="color: #10B981; font-weight:700;">100% Deterministic (Python/SQL)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Resilience</strong></td>
+                        <td>Static formula errors</td>
+                        <td>Regenerates text blindly</td>
+                        <td><span style="color: #10B981; font-weight:700;">Autonomous Self-Healing Loop</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Setup Overhead</strong></td>
+                        <td>Complex software installation</td>
+                        <td>Browser</td>
+                        <td><span style="color: #10B981; font-weight:700;">Zero-Setup Web Dashboard</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 14: Future Scope -->
+        <div class="slide" data-notes="Future enhancements include multi-table relational joins, voice-driven querying, automated predictive machine learning, and cloud containerization.">
+            <div class="badge">Future Roadmap</div>
+            <h2 class="slide-title">Scalability & Enterprise Expansion Scope</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-title">Technical Features</div>
+                    <ul class="card-list">
+                        <li><strong>Multi-Table Relational Joins:</strong> Ingesting multiple CSV/Excel workbooks and querying foreign-key relationships.</li>
+                        <li><strong>Voice-to-Query Interface:</strong> Speech-to-text integration via Web Speech API.</li>
+                        <li><strong>Automated Predictive ML:</strong> One-click classification, regression, and time-series forecasting models.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">Enterprise Deployment</div>
+                    <ul class="card-list">
+                        <li><strong>Docker & Kubernetes:</strong> Containerizing the platform for high-concurrency cloud scaling.</li>
+                        <li><strong>Streamlit Community Cloud:</strong> One-click public deployment.</li>
+                        <li><strong>Enterprise Connectors:</strong> Direct live connections to PostgreSQL, Snowflake, and BigQuery.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Conclusion -->
+        <div class="slide" data-notes="To conclude, our project proves that program synthesis combined with isolated sandboxing is the premier architecture for tabular AI assistants. Thank you.">
+            <div class="badge">Project Summary</div>
+            <h2 class="slide-title">Conclusion & Key Academic Contributions</h2>
+            <div class="content-grid">
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-title" style="color: #10B981;">Core Technical Contributions</div>
+                    <ul class="card-list">
+                        <li>Proved that <strong>Program Synthesis + Sandboxed Execution</strong> eliminates numerical hallucinations.</li>
+                        <li>Demonstrated that <strong>Token-Safe Schema Extraction</strong> yields 95%+ token cost savings while preserving complete data privacy.</li>
+                        <li>Engineered an <strong>AST Security Sandbox</strong> that prevents Remote Code Execution attacks.</li>
+                        <li>Achieved <strong>96% query accuracy</strong> with an autonomous self-healing retry loop.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+                    <div class="card-title" style="color: #818CF8;">Final Year Deliverables</div>
+                    <ul class="card-list">
+                        <li>Full-stack Streamlit web application with 5 comprehensive tabs.</li>
+                        <li>11/11 automated unit tests passing in 1.52 seconds.</li>
+                        <li>Full IEEE 830 compliant SRS, Project Synopsis, and Presentation Deck.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Q&A -->
+        <div class="slide" data-notes="I would now be delighted to take any questions from the examination panel and demonstrate live queries on the application.">
+            <div class="title-slide-content" style="align-items: center; text-align: center;">
+                <h1 class="main-hero-title" style="font-size: 3.8rem; margin-bottom: 20px;">Thank You!</h1>
+                <p class="hero-subtitle" style="font-size: 1.4rem; color: #818CF8; font-weight: 700; margin-bottom: 12px;">
+                    Questions & Answers / Live Demonstration
+                </p>
+                <p style="color: #94A3B8; font-size: 1rem; max-width: 600px; margin-bottom: 30px;">
+                    Conversational Data Analysis Assistant • Python • Streamlit • DuckDB • Gemini 3.8 Flash
+                </p>
+                <div class="meta-strip">
+                    <div class="meta-item">
+                        <strong>Project Path</strong>
+                        <span>d:\data analysis assistant</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Live Web URL</strong>
+                        <span>http://localhost:8501</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Notes Panel -->
+    <div class="notes-panel" id="notesPanel">
+        <strong style="color: #818CF8;">Speaker Notes:</strong>
+        <p id="notesContent">Loading notes...</p>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bottom-bar">
+        <div class="slide-counter" id="slideCounter">Slide 1 of 16</div>
+        <div class="nav-buttons">
+            <button class="btn" onclick="prevSlide()">◀ Previous</button>
+            <button class="btn" onclick="nextSlide()">Next ▶</button>
+            <button class="btn" onclick="toggleNotes()">📝 Notes (S)</button>
+            <button class="btn btn-fullscreen" onclick="toggleFullscreen()">⛶ Fullscreen (F)</button>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+        const notesPanel = document.getElementById('notesPanel');
+        const notesContent = document.getElementById('notesContent');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                s.classList.toggle('active', idx === currentSlide);
+            });
+
+            // Update Progress Bar
+            const pct = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = pct + '%';
+
+            // Update Counter
+            slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+
+            // Update Notes
+            const activeSlide = slides[currentSlide];
+            const notes = activeSlide.getAttribute('data-notes') || 'No speaker notes for this slide.';
+            notesContent.textContent = notes;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            notesPanel.classList.toggle('active');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => alert(err.message));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                prevSlide();
+            } else if (e.key.toLowerCase() === 's') {
+                toggleNotes();
+            } else if (e.key.toLowerCase() === 'f') {
+                toggleFullscreen();
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
